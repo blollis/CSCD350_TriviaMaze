@@ -1,0 +1,11 @@
+﻿<Window x:Class="TrueAndFalse.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Label x:Name="QuestionField" Content="Label" HorizontalAlignment="Left" Margin="51,37,0,0" VerticalAlignment="Top" Width="387" Height="63"/>
+        <Button x:Name="True" Content="True" HorizontalAlignment="Left" Margin="51,140,0,0" VerticalAlignment="Top" Width="154" Height="39" Click="Button_Click"/>
+        <Button x:Name="False" Content="False" HorizontalAlignment="Left" Margin="280,140,0,0" VerticalAlignment="Top" Width="154" Height="39" Click="Button_Click_1"/>
+
+    </Grid>
+</Window>

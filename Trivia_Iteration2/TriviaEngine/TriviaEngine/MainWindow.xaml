@@ -1,0 +1,530 @@
+﻿<Window x:Class="TriviaEngine.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="JourneyTo" Height="486.192" Width="725">
+    <Window.Background>
+        <ImageBrush ImageSource="/Resources/space.jpg"/>
+    </Window.Background>
+
+    <Grid>
+        <Menu x:Name="mnuMainMenu" Margin="0,0,0,420.2" Grid.ColumnSpan="2">
+            <MenuItem x:Name="mnuGame" Header="Game">
+                <MenuItem x:Name="mnuStart" Header="Start" HorizontalAlignment="Left" Width="145" Click="mnuStart_Click"/>
+                <Separator HorizontalAlignment="Left" Width="145"/>
+                <MenuItem x:Name="mnuReset" Header="Reset" HorizontalAlignment="Left" Width="145" Click="mnuReset_Click"/>
+                <Separator HorizontalAlignment="Left" Width="145"/>
+                <MenuItem x:Name="mnuExit" Header="Exit" HorizontalAlignment="Left" Width="145" Click="mnuExit_Click"/>
+            </MenuItem>
+            <MenuItem x:Name="mnuInfo" Header="Info">
+                <MenuItem x:Name="mnuAbout" Header="About" HorizontalAlignment="Left" Width="145" Click="mnuAbout_Click"/>
+                <Separator HorizontalAlignment="Left" Width="145"/>
+                <MenuItem x:Name="mnuHelp" Header="Help" HorizontalAlignment="Left" Width="145" Click="mnuHelp_Click"/>
+            </MenuItem>
+        </Menu>
+        <Canvas x:Name="Game" HorizontalAlignment="Left" Margin="79,42,0,0" VerticalAlignment="Top" Width="629" Height="388" PreviewMouseDown="Game_PreviewMouseDown">
+
+            <Image x:Name="PlayerShip" Source="/Resources/oie_transparent.png" Panel.ZIndex="1" Height="59" Canvas.Top="183" Width="65" >
+                <Image.RenderTransform>
+                    <RotateTransform CenterX="29" CenterY="32" />
+                </Image.RenderTransform>
+                <Image.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <Trigger Property="Image.IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                    Storyboard.TargetProperty="RenderTransform.Angle"
+                                    From="0"
+                                    To="360"
+                                    Duration="0:0:8"
+                                    RepeatBehavior="Forever" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+
+            <Button x:Name="PlanetButton1" Height="46" Width="43" Canvas.Top="196" Click="Button_Click" RenderTransformOrigin="0.151,2.494">
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="/Resources/earth.png" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Line
+    X1="05" Y1="122"
+    X2="100" Y2="122"
+    StrokeThickness="3"
+                StrokeDashArray="1, 1"
+                
+    Canvas.Left="50" RenderTransformOrigin="-0.137,1.002" Canvas.Top="90" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <RadialGradientBrush.GradientStops>
+                            <GradientStop Color="Yellow" Offset="0" />
+                            <GradientStop Color="Yellow" Offset="0.25" />
+                        </RadialGradientBrush.GradientStops>
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Button x:Name="PlanetButton2" Height="45" Width="43" Canvas.Left="73" Canvas.Top="151" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="/Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton3" Height="65" Width="43" Canvas.Left="73" Canvas.Top="234" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="/Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton2_Copy7" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Button>
+            <Line
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                
+            	Canvas.Left="26" RenderTransformOrigin="-0.137,1.002" Canvas.Top="97" Height="142" Width="47">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="Yellow" Offset="0" />
+                        <GradientStop Color="Yellow" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                
+            	Canvas.Left="90" RenderTransformOrigin="-0.137,1.002" Canvas.Top="35" Height="142" Width="45">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="87.73"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="Yellow" Offset="0" />
+                        <GradientStop Color="Yellow" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Button x:Name="PlanetButton4" Height="45" Width="43" Canvas.Left="162" Canvas.Top="107" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton5" Height="46" Width="43" Canvas.Left="162" Canvas.Top="196" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton6" Height="45" Width="43" Canvas.Left="162" Canvas.Top="289" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton7" Height="46" Width="43" Canvas.Left="250" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" Canvas.Top="42" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton8" Height="45" Width="43" Canvas.Left="250" Canvas.Top="135" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton9" Height="45" Width="43" Canvas.Left="250" Canvas.Top="234" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton10" Height="45" Width="43" Canvas.Left="250" Canvas.Top="337" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton11" Height="65" Width="44" Canvas.Left="334" Click="Button_Click" RenderTransformOrigin="0.317,0.149" Canvas.Top="74" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton3_Copy4" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button x:Name="PlanetButton2_Copy8" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                        <Button.Template>
+                            <ControlTemplate>
+
+                                <Grid x:Name="g1">
+                                    <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton12" Height="64" Width="43" Canvas.Left="334" Canvas.Top="178" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton2_Copy9" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton13" Height="66" Width="43" Canvas.Left="334" Canvas.Top="269" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton2_Copy10" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton14" Height="66" Width="43" Canvas.Left="434" Click="Button_Click" RenderTransformOrigin="0.317,0.149" Canvas.Top="114" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton3_Copy6" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button x:Name="PlanetButton3_Copy7" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                        <Button.Template>
+                            <ControlTemplate>
+
+                                <Grid x:Name="g1">
+                                    <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button x:Name="PlanetButton2_Copy12" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                            <Button.Template>
+                                <ControlTemplate>
+
+                                    <Grid x:Name="g1">
+                                        <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Button>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton15" Height="65" Width="43" Canvas.Left="434" Click="Button_Click" RenderTransformOrigin="0.317,0.149" Canvas.Top="234" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton3_Copy8" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button x:Name="PlanetButton3_Copy9" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                        <Button.Template>
+                            <ControlTemplate>
+
+                                <Grid x:Name="g1">
+                                    <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button x:Name="PlanetButton2_Copy11" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                            <Button.Template>
+                                <ControlTemplate>
+
+                                    <Grid x:Name="g1">
+                                        <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Button>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton16" Height="46" Width="43" Canvas.Top="196" Click="Button_Click" RenderTransformOrigin="0.151,2.494" Canvas.Left="507">
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/earth.png" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+
+        </Canvas>
+
+    </Grid>
+</Window>

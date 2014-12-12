@@ -1,0 +1,1247 @@
+﻿<Window x:Class="TriviaEngine.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="JourneyTo" MinHeight="486.192" MinWidth="725" MaxHeight="486.192" MaxWidth="725" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow">
+    <Window.Background>
+        <ImageBrush ImageSource="/Resources/space.jpg"/>
+    </Window.Background>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="104*"/>
+            <ColumnDefinition Width="277*"/>
+        </Grid.ColumnDefinitions>
+        <Menu x:Name="mnuMainMenu" Margin="0,0,-0.4,419.6" Grid.ColumnSpan="2" Background="Black" Foreground="White">
+            <MenuItem x:Name="mnuGame" Header="Game" Background="Black" Foreground="White">
+                <MenuItem x:Name="mnuStart" Header="Start" HorizontalAlignment="Left" Width="145" Click="mnuStart_Click" Background="Black" Foreground="White"/>
+
+                <MenuItem x:Name="mnuReset" Header="Reset" HorizontalAlignment="Left" Width="145" Click="mnuReset_Click" Background="Black" Foreground="White"/>
+
+                <MenuItem x:Name="mnuExit" Header="Exit" HorizontalAlignment="Left" Width="145" Click="mnuExit_Click" Background="Black" Foreground="White"/>
+            </MenuItem>
+            <MenuItem x:Name="mnuAddQuestion" Header="Add Question">
+                <MenuItem x:Name="mnuAddMC" Header="Multiple Choice" HorizontalAlignment="Left" Width="175" Click="mnuAddMC_Click" Background="Black" Foreground="White"/>
+                <MenuItem x:Name="mnuAddTF" Header="True/False" HorizontalAlignment="Left" Width="175" Click="mnuAddTF_Click" Background="Black" Foreground="White"/>
+                <MenuItem x:Name="mnuAddSA" Header="Short Answer" HorizontalAlignment="Left" Width="175" Click="mnuAddSA_Click" Background="Black" Foreground="White"/>
+            </MenuItem>
+            <MenuItem x:Name="mnuInfo" Header="Info">
+                <MenuItem x:Name="mnuAbout" Header="About" HorizontalAlignment="Left" Width="145" Click="mnuAbout_Click" Background="Black" Foreground="White"/>
+
+                <MenuItem x:Name="mnuHelp" Header="Help" HorizontalAlignment="Left" Width="145" Click="mnuHelp_Click" Background="Black" Foreground="White"/>
+            </MenuItem>
+        </Menu>
+        <Canvas x:Name="Game" HorizontalAlignment="Left" Margin="-1,37,0,0" VerticalAlignment="Top" Width="722" Height="420" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2" >
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.122"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="0.679"/>
+                </TransformGroup>
+            </Canvas.RenderTransform>
+
+            <Image x:Name="PlayerShip" Source="/Resources/oie_transparent.png" Panel.ZIndex="1" Height="55" Canvas.Top="200" Width="55" Canvas.Left="50" >
+                <Image.RenderTransform>
+                    <RotateTransform CenterX="29" CenterY="32" />
+                </Image.RenderTransform>
+                <Image.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <Trigger Property="Image.IsEnabled" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                    Storyboard.TargetProperty="RenderTransform.Angle"
+                                    From="0"
+                                    To="360"
+                                    Duration="0:0:8"
+                                    RepeatBehavior="Forever" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+
+            <Button x:Name="PlanetButton1" Height="46" Width="43" Canvas.Top="200" Click="Button_Click" RenderTransformOrigin="0.151,2.494" Canvas.Left="60">
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="/Resources/earth.png" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Line x:Name ="Line1And2"
+    X1="05" Y1="122"
+    X2="100" Y2="122"
+    StrokeThickness="3"
+                  Opacity="0"
+                StrokeDashArray="1, 1"
+                
+    Canvas.Left="117" RenderTransformOrigin="-0.137,1.002" Canvas.Top="97" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <RadialGradientBrush.GradientStops>
+                            <GradientStop Color="cyan" Offset="0" />
+                            <GradientStop Color="cyan" Offset="0.25" />
+                        </RadialGradientBrush.GradientStops>
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Button x:Name="PlanetButton2" Height="45" Width="43" Canvas.Left="150" Canvas.Top="150" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="/Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton3" Height="45" Width="45" Canvas.Left="150" Canvas.Top="250" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="/Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton2_Copy7" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Button>
+            <Line x:Name ="Line1And3"
+            	X1="05" Y1="122"
+                  Opacity="0"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                
+            	Canvas.Left="92" RenderTransformOrigin="-0.137,1.002" Canvas.Top="106" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line2And3"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                  Opacity="0"
+                
+            	Canvas.Left="164" RenderTransformOrigin="-0.137,1.002" Canvas.Top="38" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Button x:Name="PlanetButton4" Height="45" Width="43" Canvas.Left="240" Canvas.Top="100" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/purpleplanet.png" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton5" Height="46" Width="43" Canvas.Left="240" Canvas.Top="200" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/redplanet.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton6" Height="45" Width="43" Canvas.Left="240" Canvas.Top="300" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/blueplanet.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton7" Height="46" Width="43" Canvas.Left="330" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" Canvas.Top="50" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/wormhole.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton8" Height="45" Width="45" Canvas.Left="330" Canvas.Top="150" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/nebula.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton9" Height="45" Width="43" Canvas.Left="330" Canvas.Top="250" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/nova.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton10" Height="45" Width="43" Canvas.Left="330" Canvas.Top="350" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/star.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="PlanetButton11" Height="45" Width="45" Canvas.Left="420" Click="Button_Click" RenderTransformOrigin="0.317,0.149" Canvas.Top="100" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/comet.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton3_Copy4" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button x:Name="PlanetButton2_Copy8" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                        <Button.Template>
+                            <ControlTemplate>
+
+                                <Grid x:Name="g1">
+                                    <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton12" Height="45" Width="45" Canvas.Left="420" Canvas.Top="200" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/greenplanet.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton2_Copy9" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton13" Height="45" Width="45" Canvas.Left="420" Canvas.Top="300" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/redplanet2.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton2_Copy10" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton14" Height="45" Width="45" Canvas.Left="510" Click="Button_Click" RenderTransformOrigin="0.317,0.149" Canvas.Top="150" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/saturn.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton3_Copy6" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/station.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button x:Name="PlanetButton3_Copy7" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                        <Button.Template>
+                            <ControlTemplate>
+
+                                <Grid x:Name="g1">
+                                    <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button x:Name="PlanetButton2_Copy12" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                            <Button.Template>
+                                <ControlTemplate>
+
+                                    <Grid x:Name="g1">
+                                        <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Button>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton15" Height="45" Width="45" Canvas.Left="510" Click="Button_Click" RenderTransformOrigin="0.317,0.149" Canvas.Top="250" >
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/moon.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button x:Name="PlanetButton3_Copy8" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                    <Button.Template>
+                        <ControlTemplate>
+
+                            <Grid x:Name="g1">
+                                <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Button x:Name="PlanetButton3_Copy9" Height="58" Width="38" Click="Button_Click" RenderTransformOrigin="0.317,0.149" >
+                        <Button.Template>
+                            <ControlTemplate>
+
+                                <Grid x:Name="g1">
+                                    <Image x:Name="p1" Source ="Resources/sun2.gif" Opacity="0.75" Cursor="Hand"/>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button x:Name="PlanetButton2_Copy11" Height="40" Width="38" Click="Button_Click" RenderTransformOrigin="-0.534,0.432" >
+                            <Button.Template>
+                                <ControlTemplate>
+
+                                    <Grid x:Name="g1">
+                                        <Image x:Name="p1" Source ="Resources/asteroid2.gif" Opacity="0.75" Cursor="Hand"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Button>
+                </Button>
+            </Button>
+            <Button x:Name="PlanetButton16" Height="46" Width="43" Canvas.Top="200" Click="Button_Click" RenderTransformOrigin="0.151,2.494" Canvas.Left="600">
+                <Button.Template>
+                    <ControlTemplate>
+
+                        <Grid x:Name="g1">
+                            <Image x:Name="p1" Source ="Resources/station.gif" Opacity="0.75" Cursor="Hand"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="p1" Property="Opacity" Value="1.0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <TextBox x:Name="FuelText" FontFamily="Comic Sans MS" Height="auto" Canvas.Left="50" TextWrapping="Wrap" Canvas.Top="18" Width="auto" IsEnabled="False" RenderTransformOrigin="0.8,4.094" Text="Fuel:" />
+            <TextBox x:Name="WarpText" FontFamily="Comic Sans MS" Height="auto" Canvas.Left="563" TextWrapping="Wrap" Canvas.Top="73" Width="96" IsEnabled="False" RenderTransformOrigin="0.8,4.094" Text="OFFLINE" TextAlignment="Center" />
+
+            <TextBox x:Name="FuelCount" FontFamily="Comic Sans MS" Height="auto" Canvas.Left="92" TextWrapping="Wrap" Canvas.Top="18" Width="auto" IsEnabled="False" RenderTransformOrigin="6.7,-0.137"/>
+            <Line x:Name ="Line2And4"
+                  
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                  Opacity="0"
+                
+            	Canvas.Left="205" RenderTransformOrigin="-0.137,1.002" Canvas.Top="44" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line4And7"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                  Opacity="0"
+                
+            	Canvas.Left="294" RenderTransformOrigin="-0.137,1.002" Canvas.Top="-5" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line3And6"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                  Opacity="0"
+                
+            	Canvas.Left="184" RenderTransformOrigin="-0.137,1.002" Canvas.Top="161" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line6And10"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                  Opacity="0"
+                
+            	Canvas.Left="273" RenderTransformOrigin="-0.137,1.002" Canvas.Top="209" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line4And5"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                  Opacity="0"
+                
+            	Canvas.Left="256" RenderTransformOrigin="-0.137,1.002" Canvas.Top="-15" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line5And6"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="257" RenderTransformOrigin="-0.137,1.002" Canvas.Top="85" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line9And10"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="345" RenderTransformOrigin="-0.137,1.002" Canvas.Top="136" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line8And9"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="345" RenderTransformOrigin="-0.137,1.002" Canvas.Top="33" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line7And8"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="345" RenderTransformOrigin="-0.137,1.002" Canvas.Top="-65" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line11And12"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="435" RenderTransformOrigin="-0.137,1.002" Canvas.Top="-11" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line12And13"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="436" RenderTransformOrigin="-0.137,1.002" Canvas.Top="89" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line14And15"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="525" RenderTransformOrigin="-0.137,1.002" Canvas.Top="40" Height="142" Width="51">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.403"/>
+                        <RotateTransform Angle="89.918"/>
+                        <TranslateTransform X="0.156" Y="0.987"/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line2And5"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="182" RenderTransformOrigin="-0.137,1.002" Canvas.Top="58" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line5And9"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="274" RenderTransformOrigin="-0.137,1.002" Canvas.Top="109" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line9And13"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="360" RenderTransformOrigin="-0.137,1.002" Canvas.Top="157" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line7And11"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="364" RenderTransformOrigin="-0.137,1.002" Canvas.Top="-47" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line11And14"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="451" RenderTransformOrigin="-0.137,1.002" Canvas.Top="4" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line14And16"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="543" RenderTransformOrigin="-0.137,1.002" Canvas.Top="57" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line4And8"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="277" RenderTransformOrigin="-0.137,1.002" Canvas.Top="6" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line8And12"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="361" RenderTransformOrigin="-0.137,1.002" Canvas.Top="54" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line12And15"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="455" RenderTransformOrigin="-0.137,1.002" Canvas.Top="106" Height="142" Width="54">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="31.522"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line3And5"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="207" RenderTransformOrigin="-0.137,1.002" Canvas.Top="147" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line6And9"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="293" RenderTransformOrigin="-0.137,1.002" Canvas.Top="198" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line10And13"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="384" RenderTransformOrigin="-0.137,1.002" Canvas.Top="251" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line13And15"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="475" RenderTransformOrigin="-0.137,1.002" Canvas.Top="201" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line15And16"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="566" RenderTransformOrigin="-0.137,1.002" Canvas.Top="148" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line5And8"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="296" RenderTransformOrigin="-0.137,1.002" Canvas.Top="98" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line8And11"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="388" RenderTransformOrigin="-0.137,1.002" Canvas.Top="47" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line9And12"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+                
+            	Canvas.Left="386" RenderTransformOrigin="-0.137,1.002" Canvas.Top="147" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Line x:Name ="Line12And14"
+            	X1="05" Y1="122"
+            	X2="100" Y2="122"
+            	StrokeThickness="3"
+            	StrokeDashArray="1, 1"
+                   Opacity="0"
+             
+                
+            	Canvas.Left="477" RenderTransformOrigin="-0.137,1.002" Canvas.Top="98" Height="142" Width="53">
+                <Line.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-28.058"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Line.RenderTransform>
+                <Line.Stroke>
+                    <RadialGradientBrush GradientOrigin="0.5,0.5" Center="0.5,0.5" RadiusX="0.5" RadiusY="0.5">
+                        <GradientStop Color="cyan" Offset="0" />
+                        <GradientStop Color="cyan" Offset="0.25" />
+                    </RadialGradientBrush>
+                </Line.Stroke>
+            </Line>
+            <Button x:Name="Warp" Content="Warp" BorderBrush="Cyan" FontFamily="Comic Sans MS" Width="auto"  FontSize="35" Canvas.Left="563" Canvas.Top="18" Click="Warp_Click"  />
+
+
+        </Canvas>
+
+    </Grid>
+</Window>

@@ -1,0 +1,16 @@
+﻿<Window x:Class="TriviaEngine.AddShortAnswer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddShortAnswer" Height="170" Width="300">
+    <Window.Background>
+        <ImageBrush ImageSource="/Resources/Galaxy-background.jpg"/>
+    </Window.Background>
+    <Grid>
+        <TextBox x:Name="tbxQuestion" HorizontalAlignment="Left" Height="auto" Margin="10,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272"/>
+        <TextBox x:Name="tbxAnswer" HorizontalAlignment="Left" Height="23" Margin="10,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="272"/>
+        <Button x:Name="btnTransmit" Content="Transmit" HorizontalAlignment="Left" Margin="100,108,0,0" VerticalAlignment="Top" Width="75" Click="btnTransmit_Click"/>
+        <Label x:Name="lblQuestion" Content="Question" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label x:Name="lblAnswer" Content="Answer" HorizontalAlignment="Left" Margin="10,49,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+    </Grid>
+</Window>
